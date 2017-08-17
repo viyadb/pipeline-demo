@@ -5,6 +5,32 @@ Demonstration of a real-time process baked by ViyaDB.
 
 ## Components
 
+The process uses [TestContainers](https://www.testcontainers.org) framework for starting, and orchestrating needed Docker containers.
+
+
+     +--------------------+          +-----------+
+     |                    |          |           |
+     |                    |   pipe   |           |
+     |  Events Generator  +--------> |   Kafka   |
+     |   (Docker)         |          |  (Docker) |
+     |                    |          |           |
+     +--------------------+          +-----+-----+
+                                           |
+                                           |
+                                           v
+                                 +---------+----------+
+                                 |                    |
+                                 |                    |
+                                 |   Spark Streaming  |
+                                 |                    |
+                                 |                    |
+                                 +---------+----------+
+                                           |
+                                           |
+                                           v
+                                         // TODO
+
+
 ## Usage
 
 ### Prerequisites
