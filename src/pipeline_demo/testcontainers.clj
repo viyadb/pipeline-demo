@@ -1,5 +1,6 @@
 (ns pipeline-demo.testcontainers
   (:import [org.testcontainers.containers Network Container GenericContainer FixedHostPortGenericContainer]
+           [org.testcontainers.containers.wait Wait]
            [org.testcontainers.images.builder ImageFromDockerfile]
            [com.github.dockerjava.api.model LogConfig]
            [java.util.function Consumer]))
@@ -41,6 +42,13 @@
                                    (reify Consumer
                                      (accept [this cmd]
                                        (.withLogConfig cmd (LogConfig. com.github.dockerjava.api.model.LogConfig$LoggingType/NONE))))))
+
+(defn waiting-for-http
+  ([^Container container path status-code]
+   (.waitingFor container (-> (Wait/forHttp path)
+                              (.forStatusCode status-code))))
+  ([^Container container path]
+   (waiting-for-http container path 200)))
 
 (defn start [^Container container]
   (.start container))
