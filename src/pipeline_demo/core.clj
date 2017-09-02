@@ -16,5 +16,5 @@
     (config/init consul-port)
     (kafka/start-docker network)
     (kafka/start-producer channel)
-    ;(spark/start-docker network consul-port)
+    (spark/start-docker network consul-port)
     (events/start-docker channel)))

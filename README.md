@@ -45,3 +45,6 @@ The process uses [TestContainers](https://www.testcontainers.org) framework for 
 ### Running
 
     java -jar target/pipeline-demo-0.1.0-standalone.jar
+
+When running for the first time, it might take some time to pull all required Docker images, please be patient.
+
