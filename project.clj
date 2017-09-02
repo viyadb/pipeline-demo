@@ -6,7 +6,9 @@
                  [org.slf4j/slf4j-api "1.7.13"]
                  [org.slf4j/log4j-over-slf4j "1.7.13"]
                  [org.testcontainers/testcontainers "1.4.2"]
-                 [clj-kafka "0.3.4"]]
+                 [clj-kafka "0.3.4"]
+                 [http-kit "2.2.0"]
+                 [cheshire "5.8.0"]]
   :main pipeline-demo.core
   :resource-paths ["resources"]
   :profiles {:uberjar {:aot :all

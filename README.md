@@ -8,27 +8,28 @@ Demonstration of a real-time process baked by ViyaDB.
 The process uses [TestContainers](https://www.testcontainers.org) framework for starting, and orchestrating needed Docker containers.
 
 
-     +--------------------+          +-----------+
-     |                    |          |           |
-     |                    |   pipe   |           |
-     |  Events Generator  +--------> |   Kafka   |
-     |   (Docker)         |          |  (Docker) |
-     |                    |          |           |
-     +--------------------+          +-----+-----+
+     +--------------------+          +-----------+              +-----------------+
+     |                    |          |           |              |                 |
+     |                    |   pipe   |           |              |                 |
+     |  Events Generator  |--------> |   Kafka   |              | Configuration   |
+     |   (Docker)         |          |  (Docker) |              | (Consul Docker) |
+     |                    |          |           |              |                 |
+     +--------------------+          +-----------+              +-----------------+
+                                           |                       ^
+                                           |                       |
+                                           v                       |
+                                 +--------------------+            |
+                                 |                    |            |
+                                 |                    |            |
+                                 |   Spark Streaming  |------------+
+                                 |                    |
+                                 |                    |
+                                 +--------------------+
                                            |
                                            |
                                            v
-                                 +---------+----------+
-                                 |                    |
-                                 |                    |
-                                 |   Spark Streaming  |
-                                 |                    |
-                                 |                    |
-                                 +---------+----------+
-                                           |
-                                           |
-                                           v
-                                         // TODO
+     
+                                       // TODO ...
 
 
 ## Usage

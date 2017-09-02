@@ -7,8 +7,9 @@
 
 (def ^:private host-ip (first (net/local-ips)))
 
-(defn start-docker []
+(defn start-docker [network]
   (-> (tc/new-fixed-port-container "spotify/kafka:latest")
+      (tc/with-network network "kafka")
       (tc/with-exposed-port 9092 9092)
       (tc/with-exposed-port 2181 2181)
       (tc/with-env {"ADVERTISED_HOST" host-ip})
@@ -23,7 +24,7 @@
       (try 
         (while true
           (when-let [msg (async/<!! channel)]
-            @(kp/send p (kp/record "test" (.getBytes msg)))))
+            @(kp/send p (kp/record "events" (.getBytes msg)))))
         (catch Throwable e
           (log/error e))))))
 
