@@ -3,6 +3,8 @@ pipeline-demo
 
 Demonstration of a real-time process baked by ViyaDB.
 
+[![Build Status](https://travis-ci.org/viyadb/pipeline-demo.png)](https://travis-ci.org/viyadb/pipeline-demo)
+
 ## Components
 
 The process uses [TestContainers](https://www.testcontainers.org) framework for starting, and orchestrating needed Docker containers.
