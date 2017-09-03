@@ -29,9 +29,17 @@ The process uses [TestContainers](https://www.testcontainers.org) framework for 
                                  +--------------------+
                                            |
                                            |
+
+                                        // TODO 
+
+                                           |
                                            v
-     
-                                       // TODO ...
+																	 +----------------+
+																	 |                |
+																	 |    ViyaDB      |
+																	 |    (Docker)    |
+																	 |                |
+																	 +----------------+
 
 
 ## Usage

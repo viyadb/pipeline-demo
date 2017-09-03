@@ -6,6 +6,7 @@
             [pipeline-demo.config :as config]
             [pipeline-demo.kafka :as kafka]
             [pipeline-demo.spark :as spark]
+            [pipeline-demo.viyadb :as viyadb]
             [pipeline-demo.events :as events])
   (:gen-class))
 
@@ -17,4 +18,5 @@
     (kafka/start-docker network)
     (kafka/start-producer channel)
     (spark/start-docker network consul-port)
+    (viyadb/start-docker network)
     (events/start-docker channel)))
