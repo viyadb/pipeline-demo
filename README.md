@@ -34,12 +34,12 @@ The process uses [TestContainers](https://www.testcontainers.org) framework for 
 
                                            |
                                            v
-																	 +----------------+
-																	 |                |
-																	 |    ViyaDB      |
-																	 |    (Docker)    |
-																	 |                |
-																	 +----------------+
+                                   +----------------+
+                                   |                |
+                                   |    ViyaDB      |
+                                   |    (Docker)    |
+                                   |                |
+                                   +----------------+
 
 
 ## Usage
