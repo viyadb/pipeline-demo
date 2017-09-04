@@ -1,6 +1,8 @@
 (ns pipeline-demo.core
   (:require [clojure.core.async :as async]
             [clojure.tools.logging :as log]
+            [org.httpkit.client :as http]
+            [cheshire.core :as json]
             [pipeline-demo.testcontainers :as tc]
             [pipeline-demo.consul :as consul]
             [pipeline-demo.config :as config]
@@ -10,13 +12,24 @@
             [pipeline-demo.events :as events])
   (:gen-class))
 
+(defn write-table-conf [consul-port]
+  (http/put
+    (str "http://localhost:" consul-port "/v1/kv/viyadb-cluster/pipeline-demo/table")
+    {:body (json/generate-string config/table-conf)}))
+
+(defn create-table [viyadb-port]
+  (http/post
+    (str "http://localhost:" viyadb-port "/tables")
+    {:body (json/generate-string config/table-conf)}))
+
 (defn -main []
   (let [channel (async/chan)
         network (tc/new-network)
         consul-port (consul/start-docker network)]
-    (config/init consul-port)
+    (write-table-conf consul-port)
     (kafka/start-docker network)
     (kafka/start-producer channel)
     (spark/start-docker network consul-port)
-    (viyadb/start-docker network)
+    (-> (viyadb/start-docker network)
+        (create-table))
     (events/start-docker channel)))

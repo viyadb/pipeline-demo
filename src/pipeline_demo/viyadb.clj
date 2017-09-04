@@ -4,8 +4,9 @@
 
 (defn start-docker [network]
   "Starts ViyaDB instance"
-  (-> (tc/new-container "viyadb/viyadb:latest")
-      (tc/with-exposed-ports 5000)
-      (tc/with-network network "viyadb")
-      (tc/waiting-for-http "/database/meta")
-      (tc/start)))
+  (let [c (tc/new-container "viyadb/viyadb:latest")]
+    (tc/with-exposed-ports c 5000)
+    (tc/with-network c network "viyadb")
+    (tc/waiting-for-http c "/database/meta")
+    (tc/start c)
+    (tc/mapped-port c 5000)))
