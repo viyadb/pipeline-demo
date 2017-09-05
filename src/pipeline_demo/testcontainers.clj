@@ -1,5 +1,5 @@
 (ns pipeline-demo.testcontainers
-  (:import [org.testcontainers.containers Network Container GenericContainer FixedHostPortGenericContainer]
+  (:import [org.testcontainers.containers Network Container GenericContainer FixedHostPortGenericContainer BindMode]
            [org.testcontainers.containers.wait Wait]
            [org.testcontainers.images.builder ImageFromDockerfile]
            [com.github.dockerjava.api.model LogConfig]
@@ -31,6 +31,10 @@
 
 (defn with-env [^Container container m]
   (.withEnv container (java.util.HashMap. m)))
+
+(defn with-filesystem-bind [^Container container host-path container-path]
+  (-> container
+      (.withFileSystemBind host-path container-path BindMode/READ_WRITE)))
 
 (defn with-network [^Container container ^Network network & aliases]
   (-> container

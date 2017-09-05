@@ -1,5 +1,6 @@
 (ns pipeline-demo.core
   (:require [clojure.core.async :as async]
+            [clojure.java.io :as io]
             [clojure.tools.logging :as log]
             [org.httpkit.client :as http]
             [cheshire.core :as json]
@@ -24,12 +25,15 @@
 
 (defn -main []
   (let [channel (async/chan)
+        tmp-dir "/tmp/pipeline-demo"
         network (tc/new-network)
         consul-port (consul/start-docker network)]
+    (.mkdirs (io/file tmp-dir))
     (write-table-conf consul-port)
     (kafka/start-docker network)
     (kafka/start-producer channel)
-    (spark/start-docker network consul-port)
+    (events/start-docker channel)
     (-> (viyadb/start-docker network)
         (create-table))
-    (events/start-docker channel)))
+    (spark/start-docker
+      network tmp-dir (:deepStorePath config/table-conf))))
