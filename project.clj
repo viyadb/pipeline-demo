@@ -8,10 +8,12 @@
                  [org.testcontainers/testcontainers "1.4.2"]
                  [clj-kafka "0.3.4"]
                  [http-kit "2.2.0"]
-                 [cheshire "5.8.0"]]
+                 [cheshire "5.8.0"]
+                 [me.raynes/fs "1.4.6"]]
   :main pipeline-demo.core
   :resource-paths ["resources"]
   :profiles {:uberjar {:aot :all
                        :dependencies [[ch.qos.logback/logback-classic "1.2.3"]]}
              :dev {:dependencies [[org.slf4j/slf4j-simple "1.7.13"]]
-                   :jvm-opts ["-Dorg.slf4j.simpleLogger.defaultLogLevel=INFO"]}})
+                   :jvm-opts ["-Dorg.slf4j.simpleLogger.defaultLogLevel=INFO"
+                              "-Djava.io.tmpdir=/tmp"]}})
