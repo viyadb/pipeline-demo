@@ -28,11 +28,15 @@ The process uses [TestContainers](https://www.testcontainers.org) framework for 
                                  |                    |
                                  +--------------------+
                                            |
+                                           |  read generated files
+                                           v
+                                    +--------------+
+                                    |              |
+                                    |    Loader    |
+                                    |              |
+                                    +--------------+
                                            |
-
-                                        // TODO 
-
-                                           |
+                                           |  load data via REST
                                            v
                                    +----------------+
                                    |                |
