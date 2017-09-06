@@ -1,5 +1,6 @@
 (ns pipeline-demo.config
-  (:require [clojure.tools.logging :as log]))
+  (:require [clojure.tools.logging :as log]
+            [me.raynes.fs :as fs]))
 
 (def table-conf 
   {:name "pipeline-demo"
@@ -22,3 +23,10 @@
    :metrics [{:name "revenue" :type "double_sum"}
              {:name "count" :type "count"}]
    :timeColumn {:name "event_time"}})
+
+
+(def tmp-dir
+  (let [d (.getPath (fs/temp-dir "pipeline-demo-"))]
+    (log/info (str "Created temporary directory:" d))
+    (.addShutdownHook (Runtime/getRuntime) (Thread. #(fs/delete-dir d)))
+    d))

@@ -3,7 +3,7 @@
             [clojure.tools.logging :as log]
             [pipeline-demo.testcontainers :as tc]))
 
-(defn start-docker [channel]
+(defn start [channel]
   "Starts events generator, and redirect its output to the channel"
   (let [c (tc/new-container "viyadb/events-generator:latest")]
     (tc/start c)

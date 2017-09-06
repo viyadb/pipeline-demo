@@ -7,7 +7,7 @@
 
 (def ^:private host-ip (first (net/local-ips)))
 
-(defn start-docker [network]
+(defn start-broker [network]
   (-> (tc/new-fixed-port-container "spotify/kafka:latest")
       (tc/with-network network "kafka")
       (tc/with-exposed-port 9092 9092)
