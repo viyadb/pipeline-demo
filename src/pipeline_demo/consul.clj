@@ -7,7 +7,7 @@
 
 (defn- write-table-conf [consul-port]
   (http/put
-    (str "http://localhost:" consul-port "/v1/kv/viyadb-cluster/pipeline-demo/table")
+    (str "http://localhost:" consul-port "/v1/kv/viyadb-cluster/tables/pipeline-demo/config")
     {:body (json/generate-string config/table-conf)}))
 
 (defn start [network]
