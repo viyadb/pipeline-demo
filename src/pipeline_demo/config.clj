@@ -13,7 +13,7 @@
                           :hashColumn false
                           :numPartitions 3}}
    :dimensions [{:name "app_id"}
-                {:name "event_time" :type "time" :granularity "day"}
+                {:name "event_time" :type "time" :format "millis" :granularity "day"}
                 {:name "country"}
                 {:name "city"}
                 {:name "device_type"}
