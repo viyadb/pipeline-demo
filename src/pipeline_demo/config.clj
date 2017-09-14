@@ -15,6 +15,9 @@
    :dimensions [{:name "app_id"}
                 {:name "event_time" :type "time" :granularity "day"}
                 {:name "country"}
+                {:name "city"}
+                {:name "device_type"}
+                {:name "device_vendor"}
                 {:name "ad_network"}
                 {:name "campaign"}
                 {:name "site_id"}
