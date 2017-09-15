@@ -9,11 +9,21 @@
 
 (def ^:private local-conf (atom {:container-dir "/tmp/pipeline-demo"}))
 
+(defn- count->long_sum [metric]
+  "Replace count metric with long_sum as counting happens on Spark side"
+  (if (= (:type metric) "count")
+    (assoc metric :type "long_sum")
+    metric))
+
+(defn- adapt-config [table-conf]
+  "Adapt table configuration before passing it to ViaDB"
+  (update-in table-conf [:metrics] (partial map count->long_sum)))
+
 (defn- create-table []
   (log/info "Creating table in ViyaDB")
   (http/post
     (str "http://localhost:" (:mapped-port @local-conf) "/tables")
-    {:body (json/generate-string config/table-conf)}))
+    {:body (json/generate-string (adapt-config config/table-conf))}))
 
 (defn load-data [chunks]
   (log/info "Loading data into ViyaDB instance")
