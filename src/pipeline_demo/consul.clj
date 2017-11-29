@@ -5,10 +5,13 @@
             [pipeline-demo.config :as config]
             [pipeline-demo.testcontainers :as tc]))
 
-(defn- write-table-conf [consul-port]
+(defn- write-configuration [consul-port]
   (http/put
     (str "http://localhost:" consul-port "/v1/kv/viyadb/tables/pipeline-demo/config")
-    {:body (json/generate-string config/table-conf)}))
+    {:body (json/generate-string config/table-conf)})
+  (http/put
+    (str "http://localhost:" consul-port "/v1/kv/viyadb/indexers/pipeline-demo/config")
+    {:body (json/generate-string config/indexer-conf)}))
 
 (defn start [network]
   "Starts Consul container, and initialize it with configuration"
@@ -17,4 +20,4 @@
     (tc/with-exposed-ports c 8500)
     (tc/waiting-for-http c "/v1/health/service/consul")
     (tc/start c)
-    (write-table-conf (tc/mapped-port c 8500))))
+    (write-configuration (tc/mapped-port c 8500))))

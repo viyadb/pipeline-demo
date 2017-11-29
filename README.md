@@ -58,6 +58,9 @@ The process uses [TestContainers](https://www.testcontainers.org) framework for 
 
 ### Running
 
+First, [build](https://github.com/viyadb/viyadb-spark#building), and put viyadb-spark\*.jar file into current directory.
+Then, run the following command:
+
     java -jar target/pipeline-demo-0.1.0-standalone.jar
 
 When running for the first time, it might take some time to pull all required Docker images, please be patient.
