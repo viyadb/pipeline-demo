@@ -6,8 +6,7 @@
             [pipeline-demo.kafka :as kafka]
             [pipeline-demo.spark :as spark]
             [pipeline-demo.viyadb :as viyadb]
-            [pipeline-demo.events :as events]
-            [pipeline-demo.loader :as loader])
+            [pipeline-demo.events :as events])
   (:gen-class))
 
 (defn -main []
@@ -18,5 +17,4 @@
     (kafka/start-producer channel)
     (events/start channel)
     (viyadb/start network)
-    (-> (spark/start network)
-        (loader/start))))
+    (spark/start network)))

@@ -10,6 +10,9 @@
     (str "http://localhost:" consul-port "/v1/kv/viyadb/tables/pipeline-demo/config")
     {:body (json/generate-string config/table-conf)})
   (http/put
+    (str "http://localhost:" consul-port "/v1/kv/viyadb/clusters/pipeline-demo/config")
+    {:body (json/generate-string config/cluster-conf)})
+  (http/put
     (str "http://localhost:" consul-port "/v1/kv/viyadb/indexers/pipeline-demo/config")
     {:body (json/generate-string config/indexer-conf)}))
 

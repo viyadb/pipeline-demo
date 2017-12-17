@@ -20,8 +20,8 @@
 
 (def indexer-conf 
   {:tables ["pipeline-demo"]
-   :deepStorePath "/tmp/events_store"
-   :realTime {:windowDuration "PT1M"
+   :deepStorePath "/tmp/pipeline-demo"
+   :realTime {:windowDuration "PT30S"
               :kafkaSource {:topics ["events"]
                             :brokers ["kafka:9092"]}
               :parseSpec {:format "json"
@@ -29,12 +29,23 @@
               :notifier {:type "kafka"
                          :channel "kafka:9092"
                          :queue "rt-notifications"}}
-   :batch {:partitioning {:column "app_id"
-                          :hashColumn false
-                          :numPartitions 3}
+   :batch {:partitioning {:columns ["app_id"]
+                          :partitions 2}
            :notifier {:type "kafka"
                       :channel "kafka:9092"
                       :queue "batch-notifications"}}})
+
+(def cluster-conf 
+  {:replication_factor 1
+   :tables ["pipeline-demo"]
+   :indexers ["pipeline-demo"]})
+
+(def store-conf
+  {:supervise true
+   :workers 2
+   :cluster_id "pipeline-demo"
+   :consul_url "http://consul:8500"
+   :state_dir "/tmp/viyadb"})
 
 (def tmp-dir
   (let [d (.getPath (fs/temp-dir "pipeline-demo-"))]
