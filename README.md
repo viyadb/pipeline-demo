@@ -28,15 +28,15 @@ The process uses [TestContainers](https://www.testcontainers.org) framework for 
                                  |                    |
                                  +--------------------+
                                            |
-                                           |  read generated files
+                                           |  notify on new micro-batches
                                            v
                                     +--------------+
                                     |              |
-                                    |    Loader    |
+                                    |    Kafka     |
                                     |              |
                                     +--------------+
                                            |
-                                           |  load data via REST
+                                           |  listen to micro-batches, and load them
                                            v
                                    +----------------+
                                    |                |
